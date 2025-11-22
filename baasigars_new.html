@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Serenity Bazigars - Roster</title>
+  <style>
+    :root {
+      --color-primary-dark: #071419;
+      --color-primary: #082a38;
+      --color-primary-light: #0f4d5c;
+      --color-accent-purple: #8b5cf6;
+      --color-accent-cyan: #06b6d4;
+      --color-accent-orange: #f97316;
+      --color-text-primary: #f8fafc;
+      --color-text-secondary: #cbd5e1;
+      --color-text-tertiary: #94a3b8;
+      --color-bg-glass: rgba(15, 77, 92, 0.4);
+      --color-border-glass: rgba(6, 182, 212, 0.2);
+      --color-success: #10b981;
+      --color-warning: #f59e0b;
+      --color-danger: #ef4444;
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --spacing-2xl: 3rem;
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 1rem;
+      --radius-2xl: 1.5rem;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+      --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+    }
+
+    #app {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+    }
+
+    /* Added hamburger menu button styles */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      gap: 6px;
+      padding: var(--spacing-md);
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 3px;
+      background: var(--color-accent-cyan);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    /* Added mobile navigation header */
+    .nav-header {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-bg-glass);
+      border: 1px solid var(--color-border-glass);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(16px);
+      padding: var(--spacing-md) var(--spacing-lg);
+      box-shadow: var(--shadow-glass);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
+      height: 60px;
+    }
+
+    .nav-header.mobile {
+      display: flex;
+    }
+
+    /* Hide mobile header on desktop (screens 768px and up) */
+    @media (min-width: 768px) {
+      .nav-header.mobile {
+        display: none !important;
+      }
+    }
+
+    .mobile-brand {
+      font-size: 1.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .mobile-brand img {
+      width: 24px;
+      height: 24px;
+      object-fit: cover;
+    }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 60px);
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    .nav-overlay.active {
+      display: block;
+    }
+
+    .sidebar {
+      width: 320px;
+      background: var(--color-bg-glass);
+      border: 1px solid var(--color-border-glass);
+      border-radius: var(--radius-2xl);
+      backdrop-filter: blur(16px);
+      padding: var(--spacing-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+      box-shadow: var(--shadow-glass);
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .team-header {
+      text-align: center;
+      padding-bottom: var(--spacing-lg);
+      border-bottom: 1px solid var(--color-border-glass);
+    }
+
+    .team-logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto var(--spacing-md);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      background: var(--color-primary-light);
+    }
+
+    .team-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .team-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+
+    .team-subtitle {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-sm);
+    }
+
+    .nav-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .nav-tab {
+      padding: var(--spacing-md);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--radius-lg);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition);
+      text-align: left;
+      font-family: inherit;
+    }
+
+    .nav-tab:hover {
+      background: rgba(6, 182, 212, 0.1);
+      color: var(--color-accent-cyan);
+    }
+
+    .nav-tab.active {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
+      border-color: var(--color-accent-cyan);
+      color: var(--color-accent-cyan);
+    }
+
+    .filters-section {
+      padding: var(--spacing-md);
+      background: rgba(15, 77, 92, 0.2);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border-glass);
+    }
+
+    .filter-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--spacing-sm);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: rgba(15, 77, 92, 0.4);
+      border: 1px solid var(--color-border-glass);
+      border-radius: var(--radius-md);
+      color: var(--color-text-primary);
+      font-size: 0.9rem;
+      transition: var(--transition);
+      margin-bottom: var(--spacing-md);
+      font-family: inherit;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--color-accent-cyan);
+      background: rgba(6, 182, 212, 0.1);
+    }
+
+    .search-input::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    .role-filters {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    .role-badge {
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: rgba(15, 77, 92, 0.4);
+      border: 1px solid var(--color-border-glass);
+      border-radius: var(--radius-md);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: var(--transition);
+      text-align: left;
+      font-family: inherit;
+    }
+
+    .role-badge:hover {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: var(--color-accent-cyan);
+    }
+
+    .role-badge.active {
+      background: var(--color-accent-cyan);
+      color: var(--color-primary-dark);
+      border-color: var(--color-accent-cyan);
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+      overflow: hidden;
+    }
+
+    .tab-content {
+      display: none;
+      overflow-y: auto;
+      height: 100%;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-text-primary);
+    }
+
+    .players-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--spacing-lg);
+      padding: var(--spacing-sm);
+    }
+
+    .player-card {
+      background: var(--color-bg-glass);
+      border: 1px solid var(--color-border-glass);
+      border-radius: var(--radius-2xl);
+      padding: var(--spacing-lg);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-glass);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: row;
+      gap: var(--spacing-lg);
+      user-select: none;
+      align-items: flex-start;
+    }
+
+    .player-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-accent-cyan);
+      box-shadow: 0 12px 24px rgba(6, 182, 212, 0.2);
+    }
+
+    .player-card:focus-visible {
+      outline: 2px solid var(--color-accent-cyan);
+      outline-offset: 2px;
+    }
+
+    .player-image {
+      width: 120px;
+      height: 120px;
+      min-width: 120px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--color-primary-light);
+      flex-shrink: 0;
+    }
+
+    .player-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .player-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      flex: 1;
+    }
+
+    .player-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .player-role {
+      font-size: 0.9rem;
+      color: var(--color-accent-cyan);
+      font-weight: 600;
+    }
+
+    .player-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--color-text-secondary);
+    }
+
+    .player-badge {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--color-accent-purple);
+      padding: 0.25rem var(--spacing-sm);
+      border-radius: var(--radius-md);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .ops-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: var(--spacing-lg);
+      padding: var(--spacing-sm);
+    }
+
+    .ops-card {
+      background: var(--color-bg-glass);
+      border: 1px solid var(--color-border-glass);
+      border-radius: var(--radius-2xl);
+      padding: var(--spacing-lg);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-glass);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      text-align: center;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .ops-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-accent-orange);
+      box-shadow: 0 12px 24px rgba(249, 115, 22, 0.2);
+    }
+
+    .ops-image {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--color-primary-light);
+      margin: 0 auto;
+    }
+
+    .ops-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ops-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .ops-role {
+      font-size: 0.9rem;
+      color: var(--color-accent-orange);
+      font-weight: 600;
+    }
+
+    .schedule-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xl);
+    }
+
+    .schedule-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+
+    .group-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-accent-cyan);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .match-card {
+      background: var(--color-bg-glass);
+      border: 1px solid var(--color-border-glass);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      backdrop-filter: blur(16px);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--spacing-lg);
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .match-card:hover {
+      border-color: var(--color-accent-cyan);
+      box-shadow: 0 8px 16px rgba(6, 182, 212, 0.15);
+    }
+
+    .match-team {
+      text-align: center;
+    }
+
+    .team-name-match {
+      font-weight: 600;
+      color: var(--color-text-primary);
+      font-size: 0.95rem;
+    }
+
+    .match-vs {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .vs-text {
+      color: var(--color-text-tertiary);
+      font-weight: 500;
+    }
+
+    .match-details {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+    }
+
+    .standings-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xl);
+    }
+
+    .standings-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .standings-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--color-bg-glass);
+      border: 1px solid var(--color-border-glass);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+    }
+
+    .standings-table thead {
+      background: rgba(6, 182, 212, 0.15);
+    }
+
+    .standings-table th {
+      padding: var(--spacing-md);
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-accent-cyan);
+      font-size: 0.9rem;
+    }
+
+    .standings-table td {
+      padding: var(--spacing-md);
+      border-top: 1px solid var(--color-border-glass);
+      color: var(--color-text-primary);
+      font-size: 0.9rem;
+    }
+
+    .standings-table tbody tr:hover {
+      background: rgba(6, 182, 212, 0.08);
+    }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-accent-cyan);
+      color: var(--color-primary-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .player-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1002;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.2s ease-in;
+    }
+
+    .player-modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--color-primary);
+      border: 1px solid var(--color-border-glass);
+      border-radius: var(--radius-2xl);
+      padding: var(--spacing-2xl);
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-glass);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xl);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--spacing-lg);
+    }
+
+    .modal-player-image {
+      width: 120px;
+      height: 120px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--color-primary-light);
+    }
+
+    .modal-player-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-player-info {
+      flex: 1;
+    }
+
+    .modal-player-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .modal-player-role {
+      font-size: 1rem;
+      color: var(--color-accent-cyan);
+      font-weight: 600;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .modal-badges {
+      display: flex;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      color: var(--color-text-primary);
+    }
+
+    .modal-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      border-top: 1px solid var(--color-border-glass);
+      padding-top: var(--spacing-lg);
+    }
+
+    .modal-section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-accent-cyan);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+    }
+
+    .stat-item {
+      background: rgba(6, 182, 212, 0.1);
+      padding: var(--spacing-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-glass);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-accent-cyan);
+    }
+
+    .highlight-text {
+      color: var(--color-text-secondary);
+      font-style: italic;
+    }
+
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+      #app {
+        flex-direction: column;
+        padding: 70px var(--spacing-sm) var(--spacing-sm);
+        gap: var(--spacing-sm);
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 60px;
+        width: 100%;
+        max-width: 100%;
+        max-height: calc(100vh - 60px);
+        border-radius: 0;
+        flex-direction: column;
+        overflow-y: auto;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        z-index: 1000;
+      }
+
+      .sidebar.active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .team-header {
+        display: none;
+      }
+
+      .nav-tabs {
+        gap: 0;
+      }
+
+      .nav-tab {
+        border-radius: 0;
+        border-bottom: 1px solid var(--color-border-glass);
+        padding: var(--spacing-lg);
+      }
+
+      .nav-tab:last-child {
+        border-bottom: none;
+      }
+
+      .filters-section {
+        border-top: 1px solid var(--color-border-glass);
+        border-radius: 0;
+      }
+
+      .main-content {
+        height: auto;
+        flex: 1;
+        padding: var(--spacing-md);
+      }
+
+      .players-grid,
+      .ops-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .player-card {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .player-image {
+        width: 100%;
+        min-width: unset;
+        height: 200px;
+        margin: 0 auto;
+      }
+
+      .match-card {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        width: 95%;
+        padding: var(--spacing-lg);
+      }
+
+      .modal-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .modal-player-image {
+        margin: 0 auto;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #app {
+        padding: 70px var(--spacing-xs) var(--spacing-xs);
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+      }
+
+      .players-grid,
+      .ops-grid {
+        gap: var(--spacing-md);
+        padding: var(--spacing-xs);
+      }
+
+      .player-card,
+      .ops-card {
+        padding: var(--spacing-md);
+      }
+
+      .player-badge {
+        padding: 0.2rem var(--spacing-sm);
+        font-size: 0.7rem;
+      }
+
+      .modal-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .modal-player-image {
+        width: 100px;
+        height: 100px;
+      }
+
+      .modal-player-name {
+        font-size: 1.25rem;
+      }
+
+      .modal-content {
+        padding: var(--spacing-lg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Updated mobile navigation header with logo and full team name, only visible on mobile -->
+    <div class="nav-header mobile" id="navHeader">
+      <span class="mobile-brand">
+        <span style="font-size: 1.4rem;">🏏</span>
+        Serenity Baazigars
+      </span>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <!-- Added overlay for closing mobile menu -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <aside class="sidebar" id="sidebar" role="navigation">
+      <div class="team-header">
+        <div class="team-logo">
+          <img src="./images/logo.png" alt="Serenity Bazigars Logo">
+        </div>
+        <h1 class="team-name">Serenity Bazigars</h1>
+        <p class="team-subtitle">🏏 Captain: Andrew Judah</p>
+        <p class="team-subtitle">Vice Captain: Dhruv Agarwal</p>
+      </div>
+
+      <nav class="nav-tabs" role="tablist">
+        <button type="button" class="nav-tab active" data-tab="roster" role="tab" aria-selected="true" aria-controls="roster">
+          📋 Roster
+        </button>
+        <button type="button" class="nav-tab" data-tab="ops" role="tab" aria-selected="false" aria-controls="ops">
+          👥 Off The Field
+        </button>
+        <button type="button" class="nav-tab" data-tab="schedule" role="tab" aria-selected="false" aria-controls="schedule">
+          📅 Schedule
+        </button>
+        <button type="button" class="nav-tab" data-tab="standings" role="tab" aria-selected="false" aria-controls="standings">
+          📊 Standings
+        </button>
+      </nav>
+
+      <div class="filters-section">
+        <div class="filter-title">Search Players</div>
+        <input 
+          type="text" 
+          id="search-players" 
+          class="search-input" 
+          placeholder="Search by name..."
+          aria-label="Search players"
+        >
+        <div class="filter-title" style="margin-top: var(--spacing-lg);">Filter by Role</div>
+        <div class="role-filters">
+          <button type="button" class="role-badge active" data-filter="all" aria-label="Show all roles">All Roles</button>
+          <button type="button" class="role-badge" data-filter="Allrounder" aria-label="Show allrounders">Allrounder</button>
+          <button type="button" class="role-badge" data-filter="Batsman" aria-label="Show batsmen">Batsman</button>
+          <button type="button" class="role-badge" data-filter="Fast Bowler" aria-label="Show fast bowlers">Fast Bowler</button>
+          <button type="button" class="role-badge" data-filter="Spin Bowler" aria-label="Show spin bowlers">Spin Bowler</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <section id="roster" class="tab-content active" role="tabpanel" aria-labelledby="roster-tab">
+        <h2 class="section-title">Playing XI</h2>
+        <div class="players-grid" id="playersContainer"></div>
+      </section>
+
+      <section id="ops" class="tab-content" role="tabpanel" aria-labelledby="ops-tab">
+        <h2 class="section-title">Off The Field</h2>
+        <div class="ops-grid" id="opsContainer"></div>
+      </section>
+
+      <section id="schedule" class="tab-content" role="tabpanel" aria-labelledby="schedule-tab">
+        <h2 class="section-title">Schedule</h2>
+        <div class="schedule-container" id="scheduleContainer"></div>
+      </section>
+
+      <section id="standings" class="tab-content" role="tabpanel" aria-labelledby="standings-tab">
+        <h2 class="section-title">Standings</h2>
+        <div class="standings-container" id="standingsContainer"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- PLAYER MODAL -->
+  <div id="playerModal" class="player-modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-player-image">
+            <img id="modalPlayerImage" src="/placeholder.svg" alt="">
+          </div>
+        </div>
+        <div class="modal-player-info">
+          <h2 class="modal-player-name" id="modalPlayerName"></h2>
+          <p class="modal-player-role" id="modalPlayerRole"></p>
+          <div class="modal-badges" id="modalBadges"></div>
+        </div>
+        <button type="button" class="modal-close" id="modalClose" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-section" id="statsSection">
+        <h3 class="modal-section-title">Career Stats</h3>
+        <div class="stats-grid" id="statsGrid"></div>
+      </div>
+
+      <div class="modal-section">
+        <h3 class="modal-section-title">Highlights</h3>
+        <p class="highlight-text" id="modalHighlights"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DATA = {
+      team: {
+        name: 'Serenity Bazigars',
+        captain: 'Andrew Judah',
+        viceCaptain: 'Dhruv Agarwal'
+      },
+      players: [
+        { id: 1, name: 'Andrew Judah', role: 'Allrounder', photo: './images/andrew.jpg', jersey: 1, isCaptain: true, isViceCaptain: false, value: '₹85L', highlights: 'Leading all-rounder with explosive batting and consistent bowling performance.', stats: { batting: 0, bowling: 0, runs: 0, wickets: 0, matches: 0 }, runsScored: 150, battingAvg: 30.00, wickets: 10, bowlingAvg: 25.50, economy: 6.80, strikeRate: 120.50 },
+        { id: 2, name: 'Dhruv Agarwal', role: 'Allrounder', photo: './images/dhrub.jpg', jersey: 2, isCaptain: false, isViceCaptain: true, value: '₹72L', highlights: 'Versatile player excelling in both batting and bowling. Tactical genius with the ball.', stats: { batting: 0, bowling: 0, runs: 0, wickets: 0, matches: 0 }, runsScored: 120, battingAvg: 28.50, wickets: 8, bowlingAvg: 28.00, economy: 6.50, strikeRate: 115.75 },
+        { id: 3, name: 'Manav Ji', role: 'Fast Bowler', photo: './images/manav.jpg', jersey: 3, isCaptain: false, isViceCaptain: false, value: '₹68L', highlights: 'Lethal fast bowler with exceptional pace and accuracy. Match-winning performer.', stats: { bowling: 0, wickets: 0, matches: 0 }, wickets: 15, bowlingAvg: 22.00, economy: 6.00 },
+        { id: 4, name: 'Rishi Deepak', role: 'Allrounder', photo: './images/rishi.jpg', jersey: 4, isCaptain: false, isViceCaptain: false, value: '₹65L', highlights: 'Solid all-rounder with consistent performances. Great team player.', stats: { batting: 0, bowling: 0, runs: 0, wickets: 0, matches: 0 }, runsScored: 90, battingAvg: 25.00, wickets: 7, bowlingAvg: 30.00, economy: 7.00, strikeRate: 110.00 },
+        { id: 5, name: 'Manan Nanthani', role: 'Spin Bowler', photo: './images/manan.jpg', jersey: 5, isCaptain: false, isViceCaptain: false, value: '₹58L', highlights: 'Expert spinner with uncanny variations. Master of match situations.', stats: { bowling: 0, wickets: 0, matches: 0 }, wickets: 12, bowlingAvg: 24.00, economy: 5.80 },
+        { id: 6, name: 'Kishore', role: 'Allrounder', photo: './images/kishore.jpg', jersey: 6, isCaptain: false, isViceCaptain: false, value: '₹62L', highlights: 'Reliable all-rounder capable of changing match dynamics.', stats: { batting: 0, bowling: 0, runs: 0, wickets: 0, matches: 0 }, runsScored: 100, battingAvg: 26.00, wickets: 6, bowlingAvg: 29.00, economy: 7.20, strikeRate: 118.00 },
+        { id: 7, name: 'Swayam Falhari', role: 'Allrounder', photo: './images/swayam.jpg', jersey: 7, isCaptain: false, isViceCaptain: false, value: '₹60L', highlights: 'Dynamic all-rounder with aggressive batting style.', stats: { batting: 0, bowling: 0, runs: 0, wickets: 0, matches: 0 }, runsScored: 130, battingAvg: 29.00, wickets: 5, bowlingAvg: 32.00, economy: 7.50, strikeRate: 130.00 },
+        { id: 8, name: 'Dhruv Bajaj', role: 'Batsman', photo: './images/dhruv.jpg', jersey: 8, isCaptain: false, isViceCaptain: false, value: '₹70L', highlights: 'Skilled batsman with excellent strike rotation. Anchor of the team.', stats: { batting: 0, runs: 0, matches: 0 }, runsScored: 180, battingAvg: 36.00, strikeRate: 125.00 },
+        { id: 9, name: 'Nimish Sogani', role: 'Batsman', photo: './images/nimish.jpg', jersey: 9, isCaptain: false, isViceCaptain: false, value: '₹55L', highlights: 'Aggressive opener with ability to score big runs consistently.', stats: { batting: 0, runs: 0, matches: 0 }, runsScored: 160, battingAvg: 32.00, strikeRate: 135.00 },
+        { id: 10, name: 'Abhinav Goyal', role: 'Allrounder', photo: './images/abhinav.jpg', jersey: 10, isCaptain: false, isViceCaptain: false, value: '₹64L', highlights: 'Balanced all-rounder capable of dominating any phase of the match.', stats: { batting: 0, bowling: 0, runs: 0, wickets: 0, matches: 0 }, runsScored: 110, battingAvg: 27.00, wickets: 9, bowlingAvg: 26.00, economy: 6.90, strikeRate: 122.00 }
+      ],
+      opsTeam: [
+        { id: 1, name: 'Kanhai Patel', role: 'Manager', photo: './images/kahai.jpg' },
+        { id: 2, name: 'Bhaskar P', role: 'Operations Manager', photo: './images/bhaskar.jpg' },
+        { id: 3, name: 'Manya Jain', role: 'Associate Media Manager', photo: './images/maanya.jpg' }
+      ],
+      schedule: [
+        { id: 1, group: 'Group 1', team1: 'Serenity Bazigars', team2: 'Serenity Challengers', date: 'Dec 2, 2024', time: '3:00 PM', venue: 'Cricket Ground A' },
+        { id: 2, group: 'Group 1', team1: 'Serenity Eagles', team2: 'Serenity Sultans', date: 'Dec 2, 2024', time: '5:30 PM', venue: 'Cricket Ground B' },
+        { id: 3, group: 'Group 1', team1: 'Serenity Knight Riders', team2: 'Serenity Challengers', date: 'Dec 3, 2024', time: '3:00 PM', venue: 'Cricket Ground A' },
+        { id: 4, group: 'Group 2', team1: 'Serenity Cheetahs', team2: 'Serenity Falcons', date: 'Dec 3, 2024', time: '5:30 PM', venue: 'Cricket Ground C' },
+        { id: 5, group: 'Group 2', team1: 'Serenity Guardians', team2: 'Serenity Panthers', date: 'Dec 4, 2024', time: '3:00 PM', venue: 'Cricket Ground D' },
+        { id: 6, group: 'Group 2', team1: 'Serenity Gladiators', team2: 'Serenity Cheetahs', date: 'Dec 4, 2024', time: '5:30 PM', venue: 'Cricket Ground C' },
+        { id: 7, group: 'Group 1', team1: 'Serenity Bazigars', team2: 'Serenity Eagles', date: 'Dec 9, 2024', time: '3:00 PM', venue: 'Cricket Ground A' },
+        { id: 8, group: 'Group 1', team1: 'Serenity Sultans', team2: 'Serenity Knight Riders', date: 'Dec 9, 2024', time: '5:30 PM', venue: 'Cricket Ground B' },
+        { id: 9, group: 'Group 1', team1: 'Serenity Challengers', team2: 'Serenity Eagles', date: 'Dec 10, 2024', time: '3:00 PM', venue: 'Cricket Ground A' },
+        { id: 10, group: 'Group 2', team1: 'Serenity Falcons', team2: 'Serenity Guardians', date: 'Dec 10, 2024', time: '5:30 PM', venue: 'Cricket Ground D' },
+        { id: 11, group: 'Group 2', team1: 'Serenity Panthers', team2: 'Serenity Gladiators', date: 'Dec 11, 2024', time: '3:00 PM', venue: 'Cricket Ground C' },
+        { id: 12, group: 'Group 2', team1: 'Serenity Cheetahs', team2: 'Serenity Panthers', date: 'Dec 11, 2024', time: '5:30 PM', venue: 'Cricket Ground D' }
+      ],
+      standings: {
+        'Group 1': [
+          { rank: 1, team: 'Serenity Challengers', played: 0, won: 0, lost: 0, points: 0 },
+          { rank: 2, team: 'Serenity Bazigars', played: 0, won: 0, lost: 0, points: 0 },
+          { rank: 3, team: 'Serenity Eagles', played: 0, won: 0, lost: 0, points: 0 },
+          { rank: 4, team: 'Serenity Sultans', played: 0, won: 0, lost: 0, points: 0 },
+          { rank: 5, team: 'Serenity Knight Riders', played: 0, won: 0, lost: 0, points: 0 }
+        ],
+        'Group 2': [
+          { rank: 1, team: 'Serenity Cheetahs', played: 0, won: 0, lost: 0, points: 0 },
+          { rank: 2, team: 'Serenity Falcons', played: 0, won: 0, lost: 0, points: 0 },
+          { rank: 3, team: 'Serenity Guardians', played: 0, won: 0, lost: 0, points: 0 },
+          { rank: 4, team: 'Serenity Panthers', played: 0, won: 0, lost: 0, points: 0 },
+          { rank: 5, team: 'Serenity Gladiators', played: 0, won: 0, lost: 0, points: 0 }
+        ]
+      }
+    };
+
+    const APP = {
+      currentTab: 'roster',
+      filteredPlayers: [],
+
+      init() {
+        this.filteredPlayers = [...DATA.players];
+        this.setupEventListeners();
+        this.renderRoster();
+        this.renderOps();
+        this.renderSchedule();
+        this.renderStandings();
+      },
+
+      setupEventListeners() {
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const navOverlay = document.getElementById('navOverlay');
+
+        hamburger?.addEventListener('click', () => {
+          hamburger.classList.toggle('active');
+          sidebar.classList.toggle('active');
+          navOverlay.classList.toggle('active');
+          hamburger.setAttribute('aria-expanded', hamburger.classList.contains('active'));
+        });
+
+        navOverlay?.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          sidebar.classList.remove('active');
+          navOverlay.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+
+        // Close menu on window resize to desktop
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 768) {
+            hamburger.classList.remove('active');
+            sidebar.classList.remove('active');
+            navOverlay.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+          tab.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const tabName = e.currentTarget.dataset.tab;
+            this.switchTab(tabName);
+            // Close mobile menu when tab is clicked
+            hamburger.classList.remove('active');
+            sidebar.classList.remove('active');
+            navOverlay.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+          });
+        });
+
+        const searchInput = document.getElementById('search-players');
+        if (searchInput) {
+          searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
+        }
+
+        document.querySelectorAll('.role-badge').forEach(badge => {
+          badge.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.handleRoleFilter(e.currentTarget.dataset.filter);
+          });
+        });
+
+        document.addEventListener('click', (e) => {
+          if (e.target.id === 'modalClose') {
+            e.preventDefault();
+            e.stopPropagation();
+            this.closeModal();
+          }
+        });
+
+        const playerModal = document.getElementById('playerModal');
+        if (playerModal) {
+          playerModal.addEventListener('click', (e) => {
+            if (e.target === playerModal) {
+              e.preventDefault();
+              e.stopPropagation();
+              this.closeModal();
+            }
+          });
+        }
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && document.getElementById('playerModal')?.classList.contains('active')) {
+            this.closeModal();
+          }
+        });
+      },
+
+      switchTab(tabName) {
+        this.currentTab = tabName;
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.getElementById(tabName)?.classList.add('active');
+
+        document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelector(`.nav-tab[data-tab="${tabName}"]`)?.classList.add('active');
+
+        document.querySelectorAll('.nav-tab').forEach(tab => tab.setAttribute('aria-selected', tab.dataset.tab === tabName));
+      },
+
+      handleSearch(query) {
+        const lowerQuery = query.toLowerCase();
+        this.filteredPlayers = DATA.players.filter(player =>
+          player.name.toLowerCase().includes(lowerQuery)
+        );
+        this.renderRoster();
+      },
+
+      handleRoleFilter(role) {
+        if (role === 'all') {
+          this.filteredPlayers = [...DATA.players];
+        } else {
+          this.filteredPlayers = DATA.players.filter(player => player.role === role);
+        }
+        this.renderRoster();
+      },
+
+      renderRoster() {
+        const container = document.getElementById('playersContainer');
+        if (!container) return;
+
+        container.innerHTML = this.filteredPlayers.map(player => `
+          <div class="player-card" tabindex="0" data-player-id="${player.id}" role="button" aria-label="View ${player.name} details">
+            <div class="player-image">
+              <img src="${player.photo}" alt="${player.name}">
+            </div>
+            <div class="player-info">
+              <h3 class="player-name">${player.name}${player.isCaptain ? ' ⭐' : ''}${player.isViceCaptain ? ' 🎯' : ''}</h3>
+              <p class="player-role">${player.role}</p>
+              <div class="player-meta">
+                <span>#${player.jersey}</span>
+                <span>${player.value}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        document.getElementById('playersContainer').addEventListener('click', (e) => {
+          const card = e.target.closest('.player-card');
+          if (card) {
+            e.preventDefault();
+            e.stopPropagation();
+            const playerId = parseInt(card.dataset.playerId);
+            this.openModal(playerId);
+          }
+        });
+
+        document.getElementById('playersContainer').addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            const card = e.target.closest('.player-card');
+            if (card) {
+              e.preventDefault();
+              e.stopPropagation();
+              const playerId = parseInt(card.dataset.playerId);
+              this.openModal(playerId);
+            }
+          }
+        });
+      },
+
+      renderOps() {
+        const container = document.getElementById('opsContainer');
+        if (!container) return;
+        container.innerHTML = DATA.opsTeam.map(member => `
+          <div class="ops-card">
+            <div class="ops-image">
+              <img src="${member.photo}" alt="${member.name}">
+            </div>
+            <h3 class="ops-name">${member.name}</h3>
+            <p class="ops-role">${member.role}</p>
+          </div>
+        `).join('');
+      },
+
+      renderSchedule() {
+        const container = document.getElementById('scheduleContainer');
+        if (!container) return;
+        const groups = ['Group 1', 'Group 2'];
+        
+        container.innerHTML = groups.map(group => {
+          const matches = DATA.schedule.filter(m => m.group === group);
+          return `
+            <div class="schedule-group">
+              <h3 class="group-title">${group}</h3>
+              ${matches.map(match => `
+                <div class="match-card">
+                  <div class="match-team">
+                    <div class="team-name-match">${match.team1}</div>
+                  </div>
+                  <div class="match-vs">
+                    <div class="vs-text">VS</div>
+                    <div class="match-details">${match.date} • ${match.time}</div>
+                  </div>
+                  <div class="match-team">
+                    <div class="team-name-match">${match.team2}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }).join('');
+      },
+
+      renderStandings() {
+        const container = document.getElementById('standingsContainer');
+        if (!container) return;
+        const groups = ['Group 1', 'Group 2'];
+
+        container.innerHTML = groups.map(group => `
+          <div class="standings-group">
+            <h3 class="group-title">${group}</h3>
+            <table class="standings-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team</th>
+                  <th>Played</th>
+                  <th>Won</th>
+                  <th>Lost</th>
+                  <th>Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${DATA.standings[group].map(row => `
+                  <tr>
+                    <td><span class="rank-badge">${row.rank}</span></td>
+                    <td>${row.team}</td>
+                    <td>${row.played}</td>
+                    <td>${row.won}</td>
+                    <td>${row.lost}</td>
+                    <td><strong>${row.points}</strong></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `).join('');
+      },
+
+      openModal(playerId) {
+        const player = DATA.players.find(p => p.id === playerId);
+        if (!player) return;
+
+        const modal = document.getElementById('playerModal');
+        if (!modal) {
+          console.error('[v0] Modal element not found');
+          return;
+        }
+
+        document.getElementById('modalPlayerImage').src = player.photo;
+        document.getElementById('modalPlayerImage').alt = player.name;
+        
+        document.getElementById('modalPlayerName').textContent = player.name + 
+          (player.isCaptain ? ' ⭐' : '') + 
+          (player.isViceCaptain ? ' 🎯' : '');
+        
+        document.getElementById('modalPlayerRole').textContent = player.role;
+
+        const badgesContainer = document.getElementById('modalBadges');
+        badgesContainer.innerHTML = (player.isCaptain ? '<span class="player-badge">Captain ⭐</span>' : '') +
+          (player.isViceCaptain ? '<span class="player-badge">Vice Captain 🎯</span>' : '');
+
+        let statsHTML = '';
+        if (player.role === 'Batsman') {
+          statsHTML = `
+            <div class="stat-item">
+              <span class="stat-label">Runs Scored</span>
+              <span class="stat-value">${player.runsScored || 0}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Batting Avg</span>
+              <span class="stat-value">${player.battingAvg || 0}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Strike Rate</span>
+              <span class="stat-value">${player.strikeRate || 0}%</span>
+            </div>
+          `;
+        } else if (player.role === 'Fast Bowler' || player.role === 'Spin Bowler') {
+          statsHTML = `
+            <div class="stat-item">
+              <span class="stat-label">Wickets</span>
+              <span class="stat-value">${player.wickets || 0}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Bowling Avg</span>
+              <span class="stat-value">${player.bowlingAvg || 0}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Economy</span>
+              <span class="stat-value">${player.economy || 0} RPO</span>
+            </div>
+          `;
+        } else if (player.role === 'Allrounder') {
+          statsHTML = `
+            <div class="stat-item">
+              <span class="stat-label">Runs Scored</span>
+              <span class="stat-value">${player.runsScored || 0}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Batting Avg</span>
+              <span class="stat-value">${player.battingAvg || 0}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Wickets</span>
+              <span class="stat-value">${player.wickets || 0}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Bowling Avg</span>
+              <span class="stat-value">${player.bowlingAvg || 0}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Economy</span>
+              <span class="stat-value">${player.economy || 0} RPO</span>
+            </div>
+          `;
+        }
+
+        document.getElementById('statsGrid').innerHTML = statsHTML;
+
+        const highlightSection = modal.querySelector('.modal-section:last-child .highlight-text');
+        if (highlightSection) {
+          highlightSection.textContent = player.highlights;
+        }
+
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+      },
+
+      closeModal() {
+        const modal = document.getElementById('playerModal');
+        if (modal) {
+          modal.classList.remove('active');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => APP.init());
+    } else {
+      APP.init();
+    }
+  </script>
+</body>
+</html>
