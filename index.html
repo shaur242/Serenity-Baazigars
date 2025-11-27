@@ -522,7 +522,8 @@
       padding: var(--spacing-lg);
       backdrop-filter: blur(16px);
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      /* Updated grid to have 4 columns for result column */
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       gap: var(--spacing-lg);
       align-items: center;
       transition: var(--transition);
@@ -558,6 +559,28 @@
     .match-details {
       font-size: 0.8rem;
       color: var(--color-text-secondary);
+    }
+
+    /* Added match result styles */
+    .match-result {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .result-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .result-value {
+      font-size: 0.9rem;
+      color: var(--color-accent-cyan);
+      font-weight: 600;
     }
 
     .standings-container {
@@ -846,7 +869,7 @@
       }
 
       .match-card {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Updated mobile layout for 4 columns */
       }
 
       .modal-content {
@@ -962,10 +985,10 @@
 
       <div class="filters-section">
         <div class="filter-title">Search Players</div>
-        <input 
-          type="text" 
-          id="search-players" 
-          class="search-input" 
+        <input
+          type="text"
+          id="search-players"
+          class="search-input"
           placeholder="Search by name..."
           aria-label="Search players"
         >
@@ -1057,33 +1080,49 @@
         { id: 3, name: 'Manya Jain', role: 'Assistant Manager', photo: './images/maanya.jpg' }
       ],
       schedule: [
-        { id: 1, group: 'Group 1', team1: 'Serenity Baazigars', team2: 'Serenity Challengers', date: 'Dec 2, 2024', time: '3:00 PM', venue: 'Cricket Ground A' },
-        { id: 2, group: 'Group 1', team1: 'Serenity Eagles', team2: 'Serenity Sultans', date: 'Dec 2, 2024', time: '5:30 PM', venue: 'Cricket Ground B' },
-        { id: 3, group: 'Group 1', team1: 'Serenity Knight Riders', team2: 'Serenity Challengers', date: 'Dec 3, 2024', time: '3:00 PM', venue: 'Cricket Ground A' },
-        { id: 4, group: 'Group 2', team1: 'Serenity Cheetahs', team2: 'Serenity Falcons', date: 'Dec 3, 2024', time: '5:30 PM', venue: 'Cricket Ground C' },
-        { id: 5, group: 'Group 2', team1: 'Serenity Guardians', team2: 'Serenity Panthers', date: 'Dec 4, 2024', time: '3:00 PM', venue: 'Cricket Ground D' },
-        { id: 6, group: 'Group 2', team1: 'Serenity Gladiators', team2: 'Serenity Cheetahs', date: 'Dec 4, 2024', time: '5:30 PM', venue: 'Cricket Ground C' },
-        { id: 7, group: 'Group 1', team1: 'Serenity Baazigars', team2: 'Serenity Eagles', date: 'Dec 9, 2024', time: '3:00 PM', venue: 'Cricket Ground A' },
-        { id: 8, group: 'Group 1', team1: 'Serenity Sultans', team2: 'Serenity Knight Riders', date: 'Dec 9, 2024', time: '5:30 PM', venue: 'Cricket Ground B' },
-        { id: 9, group: 'Group 1', team1: 'Serenity Challengers', team2: 'Serenity Eagles', date: 'Dec 10, 2024', time: '3:00 PM', venue: 'Cricket Ground A' },
-        { id: 10, group: 'Group 2', team1: 'Serenity Falcons', team2: 'Serenity Guardians', date: 'Dec 10, 2024', time: '5:30 PM', venue: 'Cricket Ground D' },
-        { id: 11, group: 'Group 2', team1: 'Serenity Panthers', team2: 'Serenity Gladiators', date: 'Dec 11, 2024', time: '3:00 PM', venue: 'Cricket Ground C' },
-        { id: 12, group: 'Group 2', team1: 'Serenity Cheetahs', team2: 'Serenity Panthers', date: 'Dec 11, 2024', time: '5:30 PM', venue: 'Cricket Ground D' }
+        { id: 1, team1: 'Serenity Challengers', team2: 'Serenity Baazigars', date: '02-12-2025', time: '8 PM - 12 PM', result: 'Lost by 5 Wickets' },
+        { id: 2, team1: 'Serenity Cheetah', team2: 'Serenity Falcons', date: '02-12-2025', time: '8 PM - 12 PM', result: 'Draw' },
+        { id: 3, team1: 'Serenity Eagles', team2: 'Serenity Seamen', date: '02-12-2025', time: '8 PM - 12 PM', result: 'Won by 10 Runs' },
+        { id: 4, team1: 'Serenity Strikers', team2: 'Serenity Zaza', date: '02-12-2025', time: '8 PM - 12 PM', result: 'Won by 7 Wickets' },
+        { id: 5, team1: 'Serenity Eagles', team2: 'Serenity Sultans', date: '03-12-2025', time: '9 PM - 11 PM', result: 'Won by 3 Wickets' },
+        { id: 6, team1: 'Serenity Guardians', team2: 'Serenity Panthers', date: '03-12-2025', time: '9 PM - 11 PM', result: 'Lost by 2 Runs' },
+        { id: 7, team1: 'Serenity Challengers', team2: 'Serenity Knight Riders', date: '04-12-2025', time: '9 PM - 12 PM', result: 'Won by 4 Wickets' },
+        { id: 8, team1: 'Serenity Cheetah', team2: 'Serenity Gladiators', date: '04-12-2025', time: '9 PM - 12 PM', result: 'Won by 8 Wickets' },
+        { id: 9, team1: 'Serenity Zaza', team2: 'Serenity Pookies', date: '04-12-2025', time: '9 PM - 12 PM', result: 'Lost by 15 Runs' },
+        { id: 10, team1: 'Serenity Baazigars', team2: 'Serenity Eagles', date: '05-12-2025', time: '9 PM - 11 PM', result: 'Won by 6 Wickets' },
+        { id: 11, team1: 'Serenity Falcons', team2: 'Serenity Guardians', date: '05-12-2025', time: '9 PM - 11 PM', result: 'Won by 5 Wickets' },
+        { id: 12, team1: 'Serenity Sultans', team2: 'Serenity Knight Riders', date: '06-12-2025', time: '9 PM - 12 PM', result: 'Draw' },
+        { id: 13, team1: 'Serenity Panthers', team2: 'Serenity Gladiators', date: '06-12-2025', time: '9 PM - 12 PM', result: 'Won by 10 Runs' },
+        { id: 14, team1: 'Serenity Eagles', team2: 'Serenity Habibis', date: '06-12-2025', time: '9 PM - 12 PM', result: 'Lost by 7 Wickets' },
+        { id: 15, team1: 'Serenity Challengers', team2: 'Serenity Eagles', date: '08-12-2025', time: '9 PM - 11 PM', result: 'Won by 4 Wickets' },
+        { id: 16, team1: 'Serenity Cheetah', team2: 'Serenity Guardians', date: '08-12-2025', time: '9 PM - 11 PM', result: 'Won by 3 Wickets' },
+        { id: 17, team1: 'Serenity Baazigars', team2: 'Serenity Sultans', date: '09-12-2025', time: '9 PM - 12 PM', result: 'Lost by 5 Wickets' },
+        { id: 18, team1: 'Serenity Falcons', team2: 'Serenity Panthers', date: '09-12-2025', time: '9 PM - 12 PM', result: 'Won by 2 Runs' },
+        { id: 19, team1: 'Serenity Seamen', team2: 'Serenity Habibis', date: '09-12-2025', time: '9 PM - 12 PM', result: 'Won by 7 Wickets' },
+        { id: 20, team1: 'Serenity Eagles', team2: 'Serenity Knight Riders', date: '10-12-2025', time: '9 PM - 11 PM', result: 'Lost by 10 Runs' },
+        { id: 21, team1: 'Serenity Guardians', team2: 'Serenity Gladiators', date: '10-12-2025', time: '9 PM - 11 PM', result: 'Won by 8 Wickets' },
+        { id: 22, team1: 'Serenity Challengers', team2: 'Serenity Sultans', date: '11-12-2025', time: '9 PM - 11 PM', result: 'Won by 5 Wickets' },
+        { id: 23, team1: 'Serenity Cheetah', team2: 'Serenity Panthers', date: '11-12-2025', time: '9 PM - 11 PM', result: 'Won by 3 Wickets' },
+        { id: 24, team1: 'Serenity Baazigars', team2: 'Serenity Knight Riders', date: '12-12-2025', time: '9 PM - 12 PM', result: 'Won by 6 Wickets' },
+        { id: 25, team1: 'Serenity Falcons', team2: 'Serenity Gladiators', date: '12-12-2025', time: '9 PM - 12 PM', result: 'Won by 5 Wickets' },
+        { id: 26, team1: 'Serenity Strikers', team2: 'Serenity Pookies', date: '12-12-2025', time: '9 PM - 12 PM', result: 'Lost by 15 Runs' },
+        { id: 27, team1: 'Serenity Baazigars', team2: 'Serenity Challengers', date: '13-12-2025', time: '9 PM - 11 PM', result: 'Won by 5 Wickets' },
+        { id: 28, team1: 'Serenity Eagles', team2: 'Serenity Seamen', date: '13-12-2025', time: '9 PM - 11 PM', result: 'Lost by 7 Wickets' }
       ],
       standings: {
         'Group 1': [
-          { rank: 1, team: 'Serenity Challengers', played: 0, won: 0, lost: 0, points: 0 },
-          { rank: 2, team: 'Serenity Baazigars', played: 0, won: 0, lost: 0, points: 0 },
-          { rank: 3, team: 'Serenity Eagles', played: 0, won: 0, lost: 0, points: 0 },
-          { rank: 4, team: 'Serenity Sultans', played: 0, won: 0, lost: 0, points: 0 },
-          { rank: 5, team: 'Serenity Knight Riders', played: 0, won: 0, lost: 0, points: 0 }
+          { rank: 1, team: 'Serenity Challengers', played: 5, won: 4, lost: 1, points: 8 },
+          { rank: 2, team: 'Serenity Baazigars', played: 5, won: 3, lost: 2, points: 6 },
+          { rank: 3, team: 'Serenity Eagles', played: 5, won: 2, lost: 3, points: 4 },
+          { rank: 4, team: 'Serenity Sultans', played: 5, won: 1, lost: 3, points: 3 },
+          { rank: 5, team: 'Serenity Knight Riders', played: 5, won: 1, lost: 4, points: 2 }
         ],
         'Group 2': [
-          { rank: 1, team: 'Serenity Cheetahs', played: 0, won: 0, lost: 0, points: 0 },
-          { rank: 2, team: 'Serenity Falcons', played: 0, won: 0, lost: 0, points: 0 },
-          { rank: 3, team: 'Serenity Guardians', played: 0, won: 0, lost: 0, points: 0 },
-          { rank: 4, team: 'Serenity Panthers', played: 0, won: 0, lost: 0, points: 0 },
-          { rank: 5, team: 'Serenity Gladiators', played: 0, won: 0, lost: 0, points: 0 }
+          { rank: 1, team: 'Serenity Cheetahs', played: 5, won: 5, lost: 0, points: 10 },
+          { rank: 2, team: 'Serenity Falcons', played: 5, won: 3, lost: 2, points: 6 },
+          { rank: 3, team: 'Serenity Guardians', played: 5, won: 2, lost: 3, points: 4 },
+          { rank: 4, team: 'Serenity Panthers', played: 5, won: 1, lost: 3, points: 3 },
+          { rank: 5, team: 'Serenity Gladiators', played: 5, won: 0, lost: 5, points: 0 }
         ]
       }
     };
@@ -1271,30 +1310,30 @@
       renderSchedule() {
         const container = document.getElementById('scheduleContainer');
         if (!container) return;
-        const groups = ['Group 1', 'Group 2'];
         
-        container.innerHTML = groups.map(group => {
-          const matches = DATA.schedule.filter(m => m.group === group);
-          return `
-            <div class="schedule-group">
-              <h3 class="group-title">${group}</h3>
-              ${matches.map(match => `
-                <div class="match-card">
-                  <div class="match-team">
-                    <div class="team-name-match">${match.team1}</div>
-                  </div>
-                  <div class="match-vs">
-                    <div class="vs-text">VS</div>
-                    <div class="match-details">${match.date} • ${match.time}</div>
-                  </div>
-                  <div class="match-team">
-                    <div class="team-name-match">${match.team2}</div>
-                  </div>
+        container.innerHTML = `
+          <div class="schedule-group">
+            <h3 class="group-title">All Matches</h3>
+            ${DATA.schedule.map(match => `
+              <div class="match-card">
+                <div class="match-team">
+                  <div class="team-name-match">${match.team1}</div>
                 </div>
-              `).join('')}
-            </div>
-          `;
-        }).join('');
+                <div class="match-vs">
+                  <div class="vs-text">VS</div>
+                  <div class="match-details">${match.date} • ${match.time}</div>
+                </div>
+                <div class="match-team">
+                  <div class="team-name-match">${match.team2}</div>
+                </div>
+                <div class="match-result">
+                  <div class="result-label">Result</div>
+                  <div class="result-value">${match.result || 'TBD'}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
       },
 
       renderStandings() {
