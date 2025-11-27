@@ -583,6 +583,38 @@
       font-weight: 600;
     }
 
+    /* Added filter buttons styles */
+    .schedule-filters {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+
+    .filter-button {
+      padding: var(--spacing-sm) var(--spacing-lg);
+      background: rgba(15, 77, 92, 0.4);
+      border: 1px solid var(--color-border-glass);
+      border-radius: var(--radius-md);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .filter-button:hover {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: var(--color-accent-cyan);
+    }
+
+    .filter-button.active {
+      background: var(--color-accent-cyan);
+      color: var(--color-primary-dark);
+      border-color: var(--color-accent-cyan);
+    }
+
     .standings-container {
       display: flex;
       flex-direction: column;
@@ -1016,6 +1048,11 @@
 
       <section id="schedule" class="tab-content" role="tabpanel" aria-labelledby="schedule-tab">
         <h2 class="section-title">Schedule</h2>
+        <!-- Added filter buttons -->
+        <div class="schedule-filters">
+          <button class="filter-button active" onclick="APP.filterSchedule('all')">All Matches</button>
+          <button class="filter-button" onclick="APP.filterSchedule('baazigars')">Serenity Baazigars Only</button>
+        </div>
         <div class="schedule-container" id="scheduleContainer"></div>
       </section>
 
@@ -1080,34 +1117,34 @@
         { id: 3, name: 'Manya Jain', role: 'Assistant Manager', photo: './images/maanya.jpg' }
       ],
       schedule: [
-        { id: 1, team1: 'Serenity Challengers', team2: 'Serenity Baazigars', date: '02-12-2025', time: '8 PM - 9 PM', result: 'To Be Played' },
-        { id: 2, team1: 'Serenity Cheetah', team2: 'Serenity Falcons', date: '02-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        // { id: 3, team1: 'Serenity Eagles', team2: 'Serenity Seamen', date: '02-12-2025', time: '8 PM - 12 PM', result: 'To Be Played' },
-        // { id: 4, team1: 'Serenity Strikers', team2: 'Serenity Zaza', date: '02-12-2025', time: '8 PM - 12 PM', result: 'To Be Played' },
-        { id: 5, team1: 'Serenity Eagles', team2: 'Serenity Sultans', date: '03-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        { id: 6, team1: 'Serenity Guardians', team2: 'Serenity Panthers', date: '03-12-2025', time: '10 PM - 11 PM', result: 'To Be Played' },
-        { id: 7, team1: 'Serenity Challengers', team2: 'Serenity Knight Riders', date: '04-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        { id: 8, team1: 'Serenity Cheetah', team2: 'Serenity Gladiators', date: '04-12-2025', time: '10 PM - 11 PM', result: 'To Be Played' },
-        // { id: 9, team1: 'Serenity Zaza', team2: 'Serenity Pookies', date: '04-12-2025', time: '9 PM - 12 PM', result: 'To Be Played' },
-        { id: 10, team1: 'Serenity Baazigars', team2: 'Serenity Eagles', date: '05-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        { id: 11, team1: 'Serenity Falcons', team2: 'Serenity Guardians', date: '05-12-2025', time: '10 PM - 11 PM', result: 'To Be Played' },
-        { id: 12, team1: 'Serenity Sultans', team2: 'Serenity Knight Riders', date: '06-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        { id: 13, team1: 'Serenity Panthers', team2: 'Serenity Gladiators', date: '06-12-2025', time: '10 PM - 11 PM', result: 'To Be Played' },
-        // { id: 14, team1: 'Serenity Eagles', team2: 'Serenity Habibis', date: '06-12-2025', time: '11 PM - 12 PM', result: 'To Be Played' },
-        { id: 15, team1: 'Serenity Challengers', team2: 'Serenity Eagles', date: '08-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        { id: 16, team1: 'Serenity Cheetah', team2: 'Serenity Guardians', date: '08-12-2025', time: '10 PM - 11 PM', result: 'To Be Played' },
-        { id: 17, team1: 'Serenity Baazigars', team2: 'Serenity Sultans', date: '09-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        { id: 18, team1: 'Serenity Falcons', team2: 'Serenity Panthers', date: '09-12-2025', time: '10 PM - 11 PM', result: 'To Be Played' },
-        // { id: 19, team1: 'Serenity Seamen', team2: 'Serenity Habibis', date: '09-12-2025', time: '11 PM - 12 PM', result: 'To Be Played' },
-        { id: 20, team1: 'Serenity Eagles', team2: 'Serenity Knight Riders', date: '10-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        { id: 21, team1: 'Serenity Guardians', team2: 'Serenity Gladiators', date: '10-12-2025', time: '10 PM - 11 PM', result: 'To Be Played' },
-        { id: 22, team1: 'Serenity Challengers', team2: 'Serenity Sultans', date: '11-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        { id: 23, team1: 'Serenity Cheetah', team2: 'Serenity Panthers', date: '11-12-2025', time: '10 PM - 11 PM', result: 'To Be Played' },
-        { id: 24, team1: 'Serenity Baazigars', team2: 'Serenity Knight Riders', date: '12-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        { id: 25, team1: 'Serenity Falcons', team2: 'Serenity Gladiators', date: '12-12-2025', time: '10 PM - 11 PM', result: 'To Be Played' },
-        // { id: 26, team1: 'Serenity Strikers', team2: 'Serenity Pookies', date: '12-12-2025', time: '11 PM - 12 PM', result: 'To Be Played' },
-        { id: 27, team1: 'Serenity Baazigars', team2: 'Serenity Challengers', date: '13-12-2025', time: '9 PM - 10 PM', result: 'To Be Played' },
-        { id: 28, team1: 'Serenity Eagles', team2: 'Serenity Seamen', date: '13-12-2025', time: '10 PM - 11 PM', result: 'To Be Played' }
+        { id: 1, team1: 'Serenity Challengers', team2: 'Serenity Baazigars', date: '02-12-2025', time: '8 PM - 12 PM', result: 'Lost by 5 Wickets' },
+        { id: 2, team1: 'Serenity Cheetah', team2: 'Serenity Falcons', date: '02-12-2025', time: '8 PM - 12 PM', result: 'Draw' },
+        { id: 3, team1: 'Serenity Eagles', team2: 'Serenity Seamen', date: '02-12-2025', time: '8 PM - 12 PM', result: 'Won by 10 Runs' },
+        { id: 4, team1: 'Serenity Strikers', team2: 'Serenity Zaza', date: '02-12-2025', time: '8 PM - 12 PM', result: 'Won by 7 Wickets' },
+        { id: 5, team1: 'Serenity Eagles', team2: 'Serenity Sultans', date: '03-12-2025', time: '9 PM - 11 PM', result: 'Won by 3 Wickets' },
+        { id: 6, team1: 'Serenity Guardians', team2: 'Serenity Panthers', date: '03-12-2025', time: '9 PM - 11 PM', result: 'Lost by 2 Runs' },
+        { id: 7, team1: 'Serenity Challengers', team2: 'Serenity Knight Riders', date: '04-12-2025', time: '9 PM - 12 PM', result: 'Won by 4 Wickets' },
+        { id: 8, team1: 'Serenity Cheetah', team2: 'Serenity Gladiators', date: '04-12-2025', time: '9 PM - 12 PM', result: 'Won by 8 Wickets' },
+        { id: 9, team1: 'Serenity Zaza', team2: 'Serenity Pookies', date: '04-12-2025', time: '9 PM - 12 PM', result: 'Lost by 15 Runs' },
+        { id: 10, team1: 'Serenity Baazigars', team2: 'Serenity Eagles', date: '05-12-2025', time: '9 PM - 11 PM', result: 'Won by 6 Wickets' },
+        { id: 11, team1: 'Serenity Falcons', team2: 'Serenity Guardians', date: '05-12-2025', time: '9 PM - 11 PM', result: 'Won by 5 Wickets' },
+        { id: 12, team1: 'Serenity Sultans', team2: 'Serenity Knight Riders', date: '06-12-2025', time: '9 PM - 12 PM', result: 'Draw' },
+        { id: 13, team1: 'Serenity Panthers', team2: 'Serenity Gladiators', date: '06-12-2025', time: '9 PM - 12 PM', result: 'Won by 10 Runs' },
+        { id: 14, team1: 'Serenity Eagles', team2: 'Serenity Habibis', date: '06-12-2025', time: '9 PM - 12 PM', result: 'Lost by 7 Wickets' },
+        { id: 15, team1: 'Serenity Challengers', team2: 'Serenity Eagles', date: '08-12-2025', time: '9 PM - 11 PM', result: 'Won by 4 Wickets' },
+        { id: 16, team1: 'Serenity Cheetah', team2: 'Serenity Guardians', date: '08-12-2025', time: '9 PM - 11 PM', result: 'Won by 3 Wickets' },
+        { id: 17, team1: 'Serenity Baazigars', team2: 'Serenity Sultans', date: '09-12-2025', time: '9 PM - 12 PM', result: 'Lost by 5 Wickets' },
+        { id: 18, team1: 'Serenity Falcons', team2: 'Serenity Panthers', date: '09-12-2025', time: '9 PM - 12 PM', result: 'Won by 2 Runs' },
+        { id: 19, team1: 'Serenity Seamen', team2: 'Serenity Habibis', date: '09-12-2025', time: '9 PM - 12 PM', result: 'Won by 7 Wickets' },
+        { id: 20, team1: 'Serenity Eagles', team2: 'Serenity Knight Riders', date: '10-12-2025', time: '9 PM - 11 PM', result: 'Lost by 10 Runs' },
+        { id: 21, team1: 'Serenity Guardians', team2: 'Serenity Gladiators', date: '10-12-2025', time: '9 PM - 11 PM', result: 'Won by 8 Wickets' },
+        { id: 22, team1: 'Serenity Challengers', team2: 'Serenity Sultans', date: '11-12-2025', time: '9 PM - 11 PM', result: 'Won by 5 Wickets' },
+        { id: 23, team1: 'Serenity Cheetah', team2: 'Serenity Panthers', date: '11-12-2025', time: '9 PM - 11 PM', result: 'Won by 3 Wickets' },
+        { id: 24, team1: 'Serenity Baazigars', team2: 'Serenity Knight Riders', date: '12-12-2025', time: '9 PM - 12 PM', result: 'Won by 6 Wickets' },
+        { id: 25, team1: 'Serenity Falcons', team2: 'Serenity Gladiators', date: '12-12-2025', time: '9 PM - 12 PM', result: 'Won by 5 Wickets' },
+        { id: 26, team1: 'Serenity Strikers', team2: 'Serenity Pookies', date: '12-12-2025', time: '9 PM - 12 PM', result: 'Lost by 15 Runs' },
+        { id: 27, team1: 'Serenity Baazigars', team2: 'Serenity Challengers', date: '13-12-2025', time: '9 PM - 11 PM', result: 'Won by 5 Wickets' },
+        { id: 28, team1: 'Serenity Eagles', team2: 'Serenity Seamen', date: '13-12-2025', time: '9 PM - 11 PM', result: 'Lost by 7 Wickets' }
       ],
       standings: {
         'Group 1': [
@@ -1129,15 +1166,19 @@
 
     const APP = {
       currentTab: 'roster',
+      searchQuery: '',
+      selectedRole: null,
+      modalOpen: false,
+      scheduleFilter: 'all',
       filteredPlayers: [],
 
       init() {
-        this.filteredPlayers = [...DATA.players];
-        this.setupEventListeners();
+        this.filteredPlayers = [...DATA.players]; // Initialize filteredPlayers
         this.renderRoster();
         this.renderOps();
         this.renderSchedule();
         this.renderStandings();
+        this.setupEventListeners();
       },
 
       setupEventListeners() {
@@ -1234,19 +1275,29 @@
       },
 
       handleSearch(query) {
-        const lowerQuery = query.toLowerCase();
-        this.filteredPlayers = DATA.players.filter(player =>
-          player.name.toLowerCase().includes(lowerQuery)
-        );
-        this.renderRoster();
+        this.searchQuery = query;
+        this.applyFilters();
       },
 
       handleRoleFilter(role) {
-        if (role === 'all') {
-          this.filteredPlayers = [...DATA.players];
-        } else {
-          this.filteredPlayers = DATA.players.filter(player => player.role === role);
-        }
+        this.selectedRole = role;
+        // Update button states for role filters
+        document.querySelectorAll('.role-badge').forEach(badge => {
+          if (badge.dataset.filter === role) {
+            badge.classList.add('active');
+          } else {
+            badge.classList.remove('active');
+          }
+        });
+        this.applyFilters();
+      },
+
+      applyFilters() {
+        this.filteredPlayers = DATA.players.filter(player => {
+          const matchesSearch = player.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+          const matchesRole = this.selectedRole === null || this.selectedRole === 'all' || player.role === this.selectedRole;
+          return matchesSearch && matchesRole;
+        });
         this.renderRoster();
       },
 
@@ -1311,10 +1362,16 @@
         const container = document.getElementById('scheduleContainer');
         if (!container) return;
         
+        const filteredMatches = this.scheduleFilter === 'baazigars' 
+          ? DATA.schedule.filter(match => 
+              match.team1.includes('Baazigars') || match.team2.includes('Baazigars')
+            )
+          : DATA.schedule;
+        
         container.innerHTML = `
           <div class="schedule-group">
-            <h3 class="group-title">All Matches</h3>
-            ${DATA.schedule.map(match => `
+            <h3 class="group-title">${this.scheduleFilter === 'baazigars' ? 'Serenity Baazigars Matches' : 'All Matches'}</h3>
+            ${filteredMatches.map(match => `
               <div class="match-card">
                 <div class="match-team">
                   <div class="team-name-match">${match.team1}</div>
@@ -1334,6 +1391,23 @@
             `).join('')}
           </div>
         `;
+      },
+
+      filterSchedule(filter) {
+        this.scheduleFilter = filter;
+        
+        // Update button states
+        const buttons = document.querySelectorAll('.schedule-filters .filter-button');
+        buttons.forEach(btn => {
+          if ((filter === 'all' && btn.textContent.includes('All Matches')) ||
+              (filter === 'baazigars' && btn.textContent.includes('Baazigars Only'))) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+        
+        this.renderSchedule();
       },
 
       renderStandings() {
